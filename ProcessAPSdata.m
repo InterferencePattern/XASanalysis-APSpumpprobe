@@ -1,4 +1,6 @@
-% Script originally from Thomas Rossi, forked 6/28/2017 by James Budarz.
+% ProcessAPSdata.m processes the raw data from APS X-ray Absorption
+% experiments performed in June 2017 by the LSU at EPFL.
+
 clear
 %% Choose the folder of all runs you want to average:
 foldername=input('Give the name of the folder you want to load, no apostrophes, and slash at the end.','s');

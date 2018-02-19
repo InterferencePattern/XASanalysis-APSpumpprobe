@@ -1,9 +1,24 @@
 function [ final_data_table,discardedruns ] = correct_baseline( baselinecorrection_on, scantype, final_data_table,detectorindices,final_x_values, baseline_indices )
-%normalize_data Normalizes baselines 3D matrix of spectral/timescan data
-%   Detailed explanation goes here
-discardedruns=0;
-corrected_runs=[];
+% Normalizes baselines 3D matrix of spectral/timescan data so that
+% timescans' negative timepoints are normalized to 0 intensity and spectral
+% far pre-edge features are normalized to 0 intensity.
+%
+% baselinecorrection_on : Boolean to enable this baseline correction 
+%              scantype : 'Spectrum' or 'Timescan'
+%      final_data_table : 3D Matrix of loaded scans, [Scan points, Detectors, Run number]
+%       detectorindices : Structure of the column numbers of data of interest.
+%        final_x_values : Array of the data's timepoints (for timescans) or energy points (for spectra)
+%      baseline_indices : Array of scan points that fall in the predefined pre-zero region.
+%
+%      final_data_table : 3D Matrix of loaded scans, now with corrected baselines
+%         discardedruns : Number of runs not used due to lacking data in the pre-zero region.
+%
 
+%% Prep variables
+discardedruns  = 0;
+corrected_runs = [];
+
+%% Compute and remove baseline
 if strcmp(scantype,'Timescan')
     for i=1:size(final_data_table,3)
         % For each scan, determine which x_values exist:
