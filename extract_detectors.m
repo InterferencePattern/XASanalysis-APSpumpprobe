@@ -1,6 +1,6 @@
 function [detectorlist_minimal_array,NHEADERLINES] = extract_detectors(data, filename)
-%UNTITLED3 Summary of this function goes here
-%   Detailed explanation goes here
+% This function makes a list of the detectors in use for a given run.
+%   This function was written by Thomas Rossi.
 %Find the number of headerlines
         for i=1:numel(data(:))
             if strcmp(data{i},'')
